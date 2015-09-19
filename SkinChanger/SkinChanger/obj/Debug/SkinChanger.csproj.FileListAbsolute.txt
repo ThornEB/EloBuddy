@@ -1,0 +1,11 @@
+I:\Visual Studio Projects\SkinChanger\SkinChanger\bin\Debug\SkinChanger.exe.config
+I:\Visual Studio Projects\SkinChanger\SkinChanger\bin\Debug\SkinChanger.exe
+I:\Visual Studio Projects\SkinChanger\SkinChanger\bin\Debug\SkinChanger.pdb
+I:\Visual Studio Projects\SkinChanger\SkinChanger\bin\Debug\EloBuddy.dll
+I:\Visual Studio Projects\SkinChanger\SkinChanger\bin\Debug\EloBuddy.SDK.dll
+I:\Visual Studio Projects\SkinChanger\SkinChanger\bin\Debug\SharpDX.dll
+I:\Visual Studio Projects\SkinChanger\SkinChanger\bin\Debug\SharpDX.Direct3D9.dll
+I:\Visual Studio Projects\SkinChanger\SkinChanger\bin\Debug\Newtonsoft.Json.dll
+I:\Visual Studio Projects\SkinChanger\SkinChanger\obj\Debug\SkinChanger.csprojResolveAssemblyReference.cache
+I:\Visual Studio Projects\SkinChanger\SkinChanger\obj\Debug\SkinChanger.exe
+I:\Visual Studio Projects\SkinChanger\SkinChanger\obj\Debug\SkinChanger.pdb
