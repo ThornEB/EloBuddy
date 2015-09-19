@@ -1,0 +1,10 @@
+I:\Visual Studio Projects\Talkative\Talkative\bin\Debug\Talkative.exe.config
+I:\Visual Studio Projects\Talkative\Talkative\bin\Debug\Talkative.exe
+I:\Visual Studio Projects\Talkative\Talkative\bin\Debug\Talkative.pdb
+I:\Visual Studio Projects\Talkative\Talkative\bin\Debug\EloBuddy.dll
+I:\Visual Studio Projects\Talkative\Talkative\bin\Debug\EloBuddy.SDK.dll
+I:\Visual Studio Projects\Talkative\Talkative\bin\Debug\SharpDX.dll
+I:\Visual Studio Projects\Talkative\Talkative\bin\Debug\SharpDX.Direct3D9.dll
+I:\Visual Studio Projects\Talkative\Talkative\bin\Debug\Newtonsoft.Json.dll
+I:\Visual Studio Projects\Talkative\Talkative\obj\Debug\Talkative.exe
+I:\Visual Studio Projects\Talkative\Talkative\obj\Debug\Talkative.pdb
