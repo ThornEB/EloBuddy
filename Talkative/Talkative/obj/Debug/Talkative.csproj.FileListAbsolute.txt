@@ -8,3 +8,4 @@ I:\Visual Studio Projects\Talkative\Talkative\bin\Debug\SharpDX.Direct3D9.dll
 I:\Visual Studio Projects\Talkative\Talkative\bin\Debug\Newtonsoft.Json.dll
 I:\Visual Studio Projects\Talkative\Talkative\obj\Debug\Talkative.exe
 I:\Visual Studio Projects\Talkative\Talkative\obj\Debug\Talkative.pdb
+I:\Visual Studio Projects\Talkative\Talkative\obj\Debug\Talkative.csprojResolveAssemblyReference.cache

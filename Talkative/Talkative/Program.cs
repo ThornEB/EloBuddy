@@ -20,6 +20,7 @@ namespace Talkative
         public static Menu RootMenu;
         public static Menu WalkerMenu;
         public static Menu CensorMenu;
+        public static Menu LagMenu;
         public static AIHeroClient Player = ObjectManager.Player;
         public static float lastsent = 0;
         public static float lastsent2 = 0;
@@ -38,33 +39,42 @@ namespace Talkative
             RootMenu.AddLabel("Made by Thorn @ EloBuddy");
             WalkerMenu = RootMenu.AddSubMenu("Walker", "walker");
             WalkerMenu.Add("won", new CheckBox("Follow mouse while chatting", false));
-            /*CensorMenu = RootMenu.AddSubMenu("Ban Avoider", "banavoider");
+            CensorMenu = RootMenu.AddSubMenu("Ban Avoider", "banavoider");
             CensorMenu.Add("con", new CheckBox("Censor bad words", false));
-            CensorMenu.Add("strikes", new CheckBox("Use strikes system", false));*/
+            CensorMenu.Add("strikes", new CheckBox("Use strikes system", false));
+            CensorMenu.Add("cdisable", new CheckBox("Disable chat", false));
+            /*LagMenu = RootMenu.AddSubMenu("Excuse Deaths", "excuser");
+            LagMenu.Add("lon", new CheckBox("Say that you lag for every death", false));*/
 
 
             Game.OnUpdate += Game_OnUpdate;
-            //Chat.OnMessage += Chat_OnInput;
+            Chat.OnInput += Chat_OnInput1;
             
         }
 
-        private static void Chat_OnInput(AIHeroClient sender, ChatMessageEventArgs args)
+        private static void Chat_OnInput1(ChatInputEventArgs args)
         {
             bool alreadywarned = false;
-            if (CensorMenu["con"].Cast<CheckBox>().CurrentValue && sender.IsMe)
+            if (Strikes > 3 && CensorMenu["strikes"].Cast<CheckBox>().CurrentValue)
+            { args.Input = " "; ChatWarning(); }
+            else
             {
-                if (Strikes > 3 && CensorMenu["strikes"].Cast<CheckBox>().CurrentValue)
-                { args.Process = false; ChatWarning(); }
-                else
+                if (CensorMenu["con"].Cast<CheckBox>().CurrentValue)
                 {
                     foreach (string word in CensoredWords)
                     {
-                        if (args.Message.ToLower().Contains(word) && !alreadywarned && CensorMenu["strikes"].Cast<CheckBox>().CurrentValue)
-                            args.Process = false; AddStrike(); ChatWarning(); alreadywarned = true;
+                        if (args.Input.ToLower().Contains(word) && !alreadywarned && CensorMenu["strikes"].Cast<CheckBox>().CurrentValue)
+                        {
+                            AddStrike();
+                            ChatWarning();
+                            alreadywarned = true;
+                            args.Input = " ";
+                        }
                     }
                 }
             }
         }
+
 
         public static void AddStrike()
         {
@@ -95,6 +105,10 @@ namespace Talkative
         {
             if (WalkerMenu["won"].Cast<CheckBox>().CurrentValue && Chat.IsOpen)
                 FollowMouse();
+
+            if (CensorMenu["cdisable"].Cast<CheckBox>().CurrentValue)
+                Hacks.IngameChat = false;
+            else Hacks.IngameChat = true;
         }
 
         public static void FollowMouse()
