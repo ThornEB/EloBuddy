@@ -1,0 +1,11 @@
+I:\Visual Studio Projects\Cassiopeia\Cassiopeia\bin\Debug\Cassiopeia.exe.config
+I:\Visual Studio Projects\Cassiopeia\Cassiopeia\bin\Debug\Cassiopeia.exe
+I:\Visual Studio Projects\Cassiopeia\Cassiopeia\bin\Debug\Cassiopeia.pdb
+I:\Visual Studio Projects\Cassiopeia\Cassiopeia\bin\Debug\EloBuddy.dll
+I:\Visual Studio Projects\Cassiopeia\Cassiopeia\bin\Debug\EloBuddy.SDK.dll
+I:\Visual Studio Projects\Cassiopeia\Cassiopeia\bin\Debug\SharpDX.dll
+I:\Visual Studio Projects\Cassiopeia\Cassiopeia\bin\Debug\SharpDX.Direct3D9.dll
+I:\Visual Studio Projects\Cassiopeia\Cassiopeia\bin\Debug\Newtonsoft.Json.dll
+I:\Visual Studio Projects\Cassiopeia\Cassiopeia\obj\Debug\Cassiopeia.csprojResolveAssemblyReference.cache
+I:\Visual Studio Projects\Cassiopeia\Cassiopeia\obj\Debug\Cassiopeia.exe
+I:\Visual Studio Projects\Cassiopeia\Cassiopeia\obj\Debug\Cassiopeia.pdb
