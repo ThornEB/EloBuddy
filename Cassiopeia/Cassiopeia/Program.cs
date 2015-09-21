@@ -72,6 +72,8 @@ namespace Cassiopeia
             LastHit.AddLabel("Last Hitting Options");
             LastHit.Add("lasthit.e", new CheckBox("Use E", true));
             LastHit.Add("lasthit.e.auto", new CheckBox("E Automatically", true));
+            LastHit.Add("lasthit.e.poison", new CheckBox("E if minion is poisoned only", false));
+            LastHit.Add("lasthit.q", new CheckBox("Use Q", true));
             /*LaneClear = Root.AddSubMenu("Lane Clear", "lc");
             LaneClear.AddLabel("Spell Usage");
             LaneClear.Add("laneclear.q", new CheckBox("Use Q", true));
@@ -116,12 +118,15 @@ namespace Cassiopeia
 
         }
 
+        
+
         private static void Spellbook_OnCastSpell(Spellbook sender, SpellbookCastSpellEventArgs args)
         {
             if (args.Slot == SpellSlot.Q)
                 LastQ = Environment.TickCount;
             else if (args.Slot == SpellSlot.E)
                 LastE = Environment.TickCount;
+            
         }
 
         private static void Gapcloser_OnGapCloser(AIHeroClient sender, Gapcloser.GapCloserEventArgs e)
@@ -158,7 +163,8 @@ namespace Cassiopeia
                     ObjectManager.Get<Obj_AI_Minion>()
                         .Where(x => x.IsEnemy && !x.IsDead && E.IsInRange(x) && GetDamage(SpellSlot.E, x) > x.Health + 5 && x.IsValidTarget()))
             {
-                E.Cast(unit);
+                if ((LastHit["lasthit.e.poison"].Cast<CheckBox>().CurrentValue && unit.HasBuffOfType(BuffType.Poison)) || !LastHit["lasthit.e.poison"].Cast<CheckBox>().CurrentValue)
+                    E.Cast(unit);
             }
         }
 
@@ -289,7 +295,17 @@ namespace Cassiopeia
                 E.IsInRange(x)
                 && !x.IsDead
                 && x.IsEnemy
+                && ((LastHit["lasthit.e.poison"].Cast<CheckBox>().CurrentValue && x.HasBuffOfType(BuffType.Poison)) || !LastHit["lasthit.e.poison"].Cast<CheckBox>().CurrentValue)
                 && x.Health + 5 < GetDamage(SpellSlot.E, x)))
+            {
+                E.Cast(min);
+            }
+
+            foreach (var min in ObjectManager.Get<Obj_AI_Minion>().Where(x =>
+                Q.IsInRange(x)
+                && !x.IsDead
+                && x.IsEnemy
+                && x.Health + 5 < GetDamage(SpellSlot.Q, x)))
             {
                 E.Cast(min);
             }
@@ -340,29 +356,21 @@ namespace Cassiopeia
 
             var rTarget = TargetSelector.GetTarget(R.Range, DamageType.Magical);
             var rSpell = Combo["combo.r"].Cast<CheckBox>().CurrentValue;
-            var rminhitSpell = Combo["combo.r.minhit"].Cast<Slider>().CurrentValue;
-            var rfaceSpell = Combo["combo.r.minfacing"].Cast<Slider>().CurrentValue;
 
-            List<AIHeroClient> targets = HeroManager.Enemies.Where(o => R.GetPrediction(o).HitChance == HitChance.High
-                                                                       && o.Distance(Player.Position) < 600).ToList();
+            if (!rSpell)
+                return;
 
-            var facing =
-                HeroManager.Enemies.Where(
-                    x => R.GetPrediction(x).HitChance == HitChance.High
-                         && x.IsFacing(Player)
-                         && !x.IsDead
-                         && x.IsValidTarget(600));
-
-            if (rSpell)
+            foreach (var hero in HeroManager.Enemies.Where(x => R.IsInRange(x) && GetDamage(SpellSlot.R, x) > x.Health + 25))
             {
-                if ((targets.Count() >= rminhitSpell
-                    || facing.Count() >= rfaceSpell)
-                    && R.IsReady()
-                    && rTarget.Health >= (GetDamage(SpellSlot.Q, rTarget) + 2 * GetDamage(SpellSlot.E, rTarget) + GetDamage(SpellSlot.R, rTarget)))
-                {
-                    R.Cast(rTarget);
-                }
+                if (R.IsReady())
+                    R.Cast(hero);
             }
+
+            if (rTarget.IsFacing(Player) && !rTarget.IsDead && R.IsReady() && rTarget.IsValidTarget(600) && rTarget.Health <= (GetDamage(SpellSlot.Q, rTarget) + 5 * GetDamage(SpellSlot.E, rTarget) + GetDamage(SpellSlot.R, rTarget)))
+                R.Cast(rTarget);
+
+            if (!rTarget.IsDead && R.IsReady() && rTarget.IsValidTarget(600) && rTarget.Health <= (GetDamage(SpellSlot.Q, rTarget) + 2 * GetDamage(SpellSlot.E, rTarget) + GetDamage(SpellSlot.R, rTarget)))
+                R.Cast(rTarget);
         }
 
         public static void DoHarass()
