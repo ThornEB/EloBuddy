@@ -112,13 +112,17 @@ namespace Cassiopeia
 
             Game.OnUpdate += Game_OnUpdate;
             Drawing.OnDraw += Drawing_OnDraw;
-            Gapcloser.OnGapCloser += Gapcloser_OnGapCloser;
+            Gapcloser.OnGapcloser += Gapcloser_OnGapcloser;
             Spellbook.OnCastSpell += Spellbook_OnCastSpell;
 
 
         }
 
-        
+        private static void Gapcloser_OnGapcloser(AIHeroClient sender, Gapcloser.GapcloserEventArgs e)
+        {
+            if (Misc["misc.gc"].Cast<CheckBox>().CurrentValue && W.IsReady() && Player.HealthPercent <= Misc["misc.gc.hp"].Cast<Slider>().CurrentValue && sender.IsValidTarget())
+                W.Cast(e.End);
+        }
 
         private static void Spellbook_OnCastSpell(Spellbook sender, SpellbookCastSpellEventArgs args)
         {
@@ -127,12 +131,6 @@ namespace Cassiopeia
             else if (args.Slot == SpellSlot.E)
                 LastE = Environment.TickCount;
             
-        }
-
-        private static void Gapcloser_OnGapCloser(AIHeroClient sender, Gapcloser.GapCloserEventArgs e)
-        {
-            if (Misc["misc.gc"].Cast<CheckBox>().CurrentValue && W.IsReady() && Player.HealthPercent <= Misc["misc.gc.hp"].Cast<Slider>().CurrentValue && sender.IsValidTarget())
-                W.Cast(e.End);
         }
 
         private static void Drawing_OnDraw(EventArgs args)
